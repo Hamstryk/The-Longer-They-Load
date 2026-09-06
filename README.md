@@ -5,5 +5,5 @@ The Longer They Load is a fairly large addon based around The Stranger They Are 
 
 [Mod Trailer](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
 
-###**DISCLAIMER**:
+###DISCLAIMER:
 As it is a fairly large addon, it takes quite a while to load!
