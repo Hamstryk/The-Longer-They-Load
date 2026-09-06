@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/ow-mods/owml/master/schemas/manifest_schema.json",
+  "filename": "TSTAButGood.dll",
+  "author": "Hamstry",
+  "name": "The Longer They Load",
+  "uniqueName": "Hamstry.TheLongerTheyLoad",
+  "version": "1.0.0",
+  "owmlVersion": "2.15.1",
+  "dependencies": [ "AnonymousStrangerOW.TheStrangerTheyAre", "xen.NewHorizons" ]
+}
