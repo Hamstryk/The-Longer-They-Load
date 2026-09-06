@@ -1,4 +1,3 @@
-**TEMPORARY IMAGE DO NOT FORGET TO CHANGE**
 ![The Longer They Load](https://github.com/Hamstryk/The-Longer-They-Load/blob/main/TSTAButGood/owmm_img.png)
 
 The Longer They Load is a fairly large addon based around The Stranger They Are where you get to unravel the darkest secrets of The Yapper.
