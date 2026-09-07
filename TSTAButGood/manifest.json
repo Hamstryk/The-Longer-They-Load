@@ -4,7 +4,7 @@
   "author": "Hamstry",
   "name": "The Longer They Load",
   "uniqueName": "Hamstry.TheLongerTheyLoad",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "owmlVersion": "2.15.1",
-  "dependencies": [ "AnonymousStrangerOW.TheStrangerTheyAre", "xen.NewHorizons" ]
+  "dependencies": [ "xen.NewHorizons" ]
 }
