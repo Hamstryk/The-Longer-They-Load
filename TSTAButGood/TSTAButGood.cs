@@ -14,6 +14,8 @@ namespace TSTAButGood
         public static TSTAButGood Instance;
         public INewHorizons NewHorizons;
 
+        private static Text loadingText; //mm loading
+
         public void Awake()
         {
             Instance = this;
@@ -32,22 +34,26 @@ namespace TSTAButGood
             // Get the New Horizons API and load configs
             NewHorizons = ModHelper.Interaction.TryGetModApi<INewHorizons>("xen.NewHorizons");
             NewHorizons.LoadConfigs(this);
-
-            // Example of accessing game code.
-            OnCompleteSceneLoad(OWScene.TitleScreen, OWScene.TitleScreen); // We start on title screen
-            LoadManager.OnCompleteSceneLoad += OnCompleteSceneLoad;
-        }
-
-        public void OnCompleteSceneLoad(OWScene previousScene, OWScene newScene)
-        {
-            if (newScene != OWScene.SolarSystem) return;
-            ModHelper.Console.WriteLine("Loaded into solar system!", MessageType.Success);
         }
     }
 
     [HarmonyPatch]
     public class LoadStopper : MonoBehaviour
     {
+        private static Text FindLoadingText()
+        {
+            foreach (SubmitActionLoadScene action in Object.FindObjectsOfType<SubmitActionLoadScene>())
+            {
+                Traverse submit = Traverse.Create(action);
+                if (submit.Field("_receivedSubmitAction").GetValue<bool>())
+                {
+                    return submit.Field("_loadingText").GetValue<Text>();
+                }
+            }
+        
+            return null;
+        }
+
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(LoadManager), (nameof(LoadManager.FinalizeAsyncSceneLoad)))]
@@ -88,6 +94,15 @@ namespace TSTAButGood
                     {
                         assetsToLoad += (int)Mathf.Round(UnityEngine.Random.Range(10f, 50f));
                     }
+                }
+                if (loadingText == null)
+                {
+                    loadingText = FindLoadingText();
+                }
+                
+                if (loadingText != null)
+                {
+                    loadingText.text = $"Loading assets... [{loadedAssets}/{assetsToLoad}]";
                 }
                 TSTAButGood.Instance.ModHelper.Console.WriteLine($"Loading assets... [{loadedAssets}/{assetsToLoad}]");
                 delay = UnityEngine.Random.Range(0.5f, 5f);
