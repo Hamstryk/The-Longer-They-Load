@@ -1,9 +1,11 @@
-﻿using HarmonyLib;
+﻿using ChaosMod;
+using HarmonyLib;
 using NewHorizons;
 using OWML.Common;
 using OWML.ModHelper;
 using System.Collections;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using static LoadManager;
 
@@ -13,8 +15,6 @@ namespace TSTAButGood
     {
         public static TSTAButGood Instance;
         public INewHorizons NewHorizons;
-
-        private static Text loadingText; //mm loading
 
         public void Awake()
         {
@@ -40,21 +40,6 @@ namespace TSTAButGood
     [HarmonyPatch]
     public class LoadStopper : MonoBehaviour
     {
-        private static Text FindLoadingText()
-        {
-            foreach (SubmitActionLoadScene action in Object.FindObjectsOfType<SubmitActionLoadScene>())
-            {
-                Traverse submit = Traverse.Create(action);
-                if (submit.Field("_receivedSubmitAction").GetValue<bool>())
-                {
-                    return submit.Field("_loadingText").GetValue<Text>();
-                }
-            }
-        
-            return null;
-        }
-
-
         [HarmonyPrefix]
         [HarmonyPatch(typeof(LoadManager), (nameof(LoadManager.FinalizeAsyncSceneLoad)))]
         public static bool DontFinalizeAsyncLoading(LoadManager __instance)
@@ -95,15 +80,12 @@ namespace TSTAButGood
                         assetsToLoad += (int)Mathf.Round(UnityEngine.Random.Range(10f, 50f));
                     }
                 }
-                if (loadingText == null)
-                {
-                    loadingText = FindLoadingText();
-                }
-                
-                if (loadingText != null)
-                {
-                    loadingText.text = $"Loading assets... [{loadedAssets}/{assetsToLoad}]";
-                }
+
+                //UILabel a = UI.Label($"loadingAssets", "Loading Assets [0/"+ assetsToLoad+ "]", Anchor.Center, 0f, 0f);
+                //a.Text = "Loading Assets [" + loadedAssets + "/" + assetsToLoad + "]";
+                UI.Notify("Loading Assets [" + loadedAssets + "/" + assetsToLoad + "]");
+                UIBar aa = UI.Bar("goingbacktothelobbylobby", (float)loadedAssets / assetsToLoad, Anchor.TopCenter, 0, 40);
+                aa.Text = "Loading Assets [" + loadedAssets + "/" + assetsToLoad + "]";
                 TSTAButGood.Instance.ModHelper.Console.WriteLine($"Loading assets... [{loadedAssets}/{assetsToLoad}]");
                 delay = UnityEngine.Random.Range(0.5f, 5f);
             }
