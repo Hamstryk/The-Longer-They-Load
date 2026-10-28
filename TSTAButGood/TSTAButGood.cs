@@ -221,7 +221,7 @@ namespace TSTAButGood
                 //a.Text = "Loading Assets [" + loadedAssets + "/" + assetsToLoad + "]";
                 UI.Notify($"Loading Assets [{loadedAssets}/{assetsToLoad}]");
                 UIBar aa = UI.Bar("goingbacktothelobbylobby", (float)loadedAssets / assetsToLoad, Anchor.TopCenter, 0, 40);
-                aa.Text = $"Loading Assets [{loadedAssets/assetsToLoad}]";
+                aa.Text = $"Loading Assets [{loadedAssets}/{assetsToLoad}]";
                 TSTAButGood.Instance.ModHelper.Console.WriteLine($"Loading assets... [{loadedAssets}/{assetsToLoad}]");
                 delay = UnityEngine.Random.Range(0.5f, 5f);
             }
