@@ -4,6 +4,7 @@ using OWML.Common;
 using OWML.ModHelper;
 using System.Collections;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using static LoadManager;
 
@@ -215,6 +216,12 @@ namespace TSTAButGood
                         assetsToLoad += (int)Mathf.Round(UnityEngine.Random.Range(10f, 50f));
                     }
                 }
+
+                //UILabel a = UI.Label($"loadingAssets", "Loading Assets [0/"+ assetsToLoad+ "]", Anchor.Center, 0f, 0f);
+                //a.Text = "Loading Assets [" + loadedAssets + "/" + assetsToLoad + "]";
+                UI.Notify($"Loading Assets [{loadedAssets}/{assetsToLoad}]");
+                UIBar aa = UI.Bar("goingbacktothelobbylobby", (float)loadedAssets / assetsToLoad, Anchor.TopCenter, 0, 40);
+                aa.Text = $"Loading Assets [{loadedAssets/assetsToLoad}]";
                 TSTAButGood.Instance.ModHelper.Console.WriteLine($"Loading assets... [{loadedAssets}/{assetsToLoad}]");
                 delay = UnityEngine.Random.Range(0.5f, 5f);
             }
