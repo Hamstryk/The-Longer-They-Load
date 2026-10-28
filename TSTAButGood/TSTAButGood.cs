@@ -1,5 +1,4 @@
-﻿using ChaosMod;
-using HarmonyLib;
+﻿using HarmonyLib;
 using NewHorizons;
 using OWML.Common;
 using OWML.ModHelper;
